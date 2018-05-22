@@ -1,4 +1,5 @@
 var start_ts = Date["now"] ? Date["now"]() : +new Date;
+var url = "https://www.nike.com/gb/en_gb/";
 var sensor_data;
 var ver = 1.26;
 var loc = "";
@@ -17,6 +18,7 @@ var d3 = 0;
 
 var start = 0;
 // This is the function that generates sensor data
+// deobfuscated.js Line 912 : start (bpd function, which is to generate sensor_data)
 try {
 	start = get_cf_date();
 	var step1_setup = updatet();
@@ -27,8 +29,17 @@ try {
 	var size1 = "t_en";
 	var i = a + "," + b + "," + size1;
 	var r = forminfo();
-	var d = "https://www.nike.com/gb/en_gb/";
-	var s = "0,0"; // Should recreate the details proably
+	var d = url;
+	var s = "0,0"; // Should recreate the details probably (not important yet)
+	/* The next step in generating the sensor_data would be 
+	   using the variable 'fpcf' (Line 1386+) however I have
+	   no idea how the 'sd_debug' function works as if you goto
+	   Line 149, you see the 'sd_debug' function however 
+	   nothing is returned in the function or so, so I'm not sure
+	   where to link it, and the main thing is line 1386+ doesn't make sense as 'sd_debug'
+	   doesn't return anything or create anything, so I'm not sure how it works. the 'data'
+	   variable too
+	*/
 } catch (t) {
 	console.log(t)
 }
@@ -43,10 +54,12 @@ function updatet() {
 }
 
 function uar() {
+	// Function isn't needed for this, it's just to keep formatting from deobfuscated.js
 	return "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36";
 }
 
 function bmisc() {
+	// Same as above, here
 	pen = 0;
 	wen = 0;
 	den = 0;
@@ -155,5 +168,5 @@ function ab(b) {
 function forminfo() {
 	return "0,0,0,0,630,630,0;0,0,0,0,2392,1230,0;1,0,0,0,2573,883,0;0,-1,0,0,2588,520,0;0,-1,0,0,2559,309,0;";
 	// Should look at forminfo() on deobfuscated script, just have some confusions 
-	// Preset form info for nike (not sure if this actually matters later on)
+	// Preset form info for nike (not sure if this actually matters later on, might need to change it for different sites? other than nike)
 }
