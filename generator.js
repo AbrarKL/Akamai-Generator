@@ -1,12 +1,10 @@
-// HEAVILY EXPERIMENTAL LINKED TO CKA() FUNCTION
-/*var ke_cnt_lmt = 150;
+var ke_cnt_lmt = 150;
 var ke_cnt = 0;
 var prevfid = -1;
 var fidcnt = 0;
 var kact = "";
 var ke_vel = 0;
-var ta = 0;*/
-// END HEAVILY EXPERIMENTAL 
+var ta = 0;
 
 var present = require('present');
 var start_ts = Date["now"] ? Date["now"]() : +new Date;
@@ -36,8 +34,10 @@ t_tst = get_cf_date();
 tst = get_cf_date() - t_tst;
 getmr();
 //look at IR function ^ should be in it, line 1725 should be at the begining
-to()
+to();
 var start = 0; 
+cka(1);
+cka(2);
 // This is the function that generates sensor data
 try
 {
@@ -54,8 +54,8 @@ try
 	var s = "0,0"; // Should recreate the details probably
 	var h = "" + ab("{fpcf[fpValstr]}");
 	var g = sed();
-	sensor_data = ver + "-1,2,-94,-100," + n + "-1,2,-94,-101," + i + "-1,2,-94,-105," + forminfo() + "-1,2,-94,-102," + r + "-1,2,-94,-108," + "{kact}" + "-1,2,-94,-110," + "{mact}" + "-1,2,-94,-117," + "{tact}" + "-1,2,-94,-111," + "{doact}" + "-1,2,-94,-109," + "{dmact}" + "-1,2,-94,-114," + "{pact}" + "-1,2,-94,-103," + "{vcact}" + "-1,2,-94,-112," + d + "-1,2,-94,-115," + "{m}" + "-1,2,-94,-106," + s;
-	sensor_data = sensor_data + "-1,2,-94,-119," + mr + "-1,2,-94,-122," + g; // I'm not sure if the way I set 'mr' works as it should, but I think it should be fine, just not sure - might need to change in future but for now is fine
+	sensor_data = ver + "-1,2,-94,-100," + n + "-1,2,-94,-101," + i + "-1,2,-94,-105," + forminfo() + "-1,2,-94,-102," + r + "-1,2,-94,-108," + kact + "-1,2,-94,-110," + "{mact}" + "-1,2,-94,-117," + "{tact}" + "-1,2,-94,-111," + "{doact}" + "-1,2,-94,-109," + "{dmact}" + "-1,2,-94,-114," + "{pact}" + "-1,2,-94,-103," + "{vcact}" + "-1,2,-94,-112," + d + "-1,2,-94,-115," + "{m}" + "-1,2,-94,-106," + s;
+	sensor_data = sensor_data + "-1,2,-94,-119," + mr + "-1,2,-94,-122," + g; // I'm not sure if the way I set 'mr' works as it should, but I think it should be fine, just not sure
 	var w = ab(sensor_data);
 	sensor_data = sensor_data + "-1,2,-94,-70," + "fpcf[fpValstr]}" + "-1,2,-94,-80," + h + "-1,2,-94,-116," + o9 + "-1,2,-94,-118," + w + "-1,2,-94,-121,";
 }
@@ -77,22 +77,22 @@ catch(t)
 {
 	
 }
-// HEAVILY EXPERIMENTAL
-/*function cka()
+function cka(number) // To generate the 'kact'
 {
-	  var n = -1;
+      var n = -1;
       var s = 1;
       if (ke_cnt < ke_cnt_lmt) {
-		var f = 16;
-        var regular_chance = 1;
+        n = 13; // e["keyCode"] 13 = enter
+        var f = 0; // e["charCode"] 0 = none
+        var regular_chance = 0;
         var oformathash = 0;
         var data_length = 0;
         var dotdotabc = 0;
         var dir = 8 * regular_chance + 4 * oformathash + 2 * data_length + dotdotabc;
         var m = get_cf_date() - start_ts;
-        var val = -1;
+        var val = 0;
         var _ = 0;
-        if (n) {
+        if (f && n) {
           n = 0 != f && 0 != n && f != n ? -1 : 0 != n ? n : f;
         }
         if (0 == oformathash && 0 == data_length && 0 == dotdotabc && n >= 32) {
@@ -104,18 +104,18 @@ catch(t)
         } else {
           fidcnt = fidcnt + 1;
         }
-        if (0 == 0) {
-          var newMonth = ke_cnt + "," + 3 + "," + m + "," + n + "," + _ + "," + dir + "," + val;
+          var newMonth = ke_cnt + "," + number + "," + m + "," + n + "," + _ + "," + dir + "," + val;
+          newMonth = newMonth + ",0";
           newMonth = newMonth + ";";
           kact = kact + newMonth;
-          ke_vel = ke_vel + ke_cnt + 3 + m + n + dir + val;
+          ke_vel = ke_vel + ke_cnt + number + m + n + dir + val;
           ta += m;
-        } else {
-          s = 0;
-        }
+        
       }
-}*/
-// END HEAVILY EXPERIMENTAL
+      if (s) {
+        ke_cnt++;
+      }
+}
 function get_cf_date()
 {
     return Date["now"] ? Date["now"]() : +new Date;
