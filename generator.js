@@ -10,7 +10,6 @@ var ta = 0;*/
 
 var present = require('present');
 var start_ts = Date["now"] ? Date["now"]() : +new Date;
-var url = "https://www.nike.com/gb/en_gb/";
 var sensor_data;
 var ver = 1.26;
 var loc = "";
