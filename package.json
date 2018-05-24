@@ -1,0 +1,24 @@
+{
+  "name": "Akamai-Generator",
+  "version": "1.0.0",
+  "description": "deobfuscated.js contains the whole deobfuscated source from Akamai found from site.com/_bm/async.js which contains the generator and everything else.",
+  "main": "deobfuscated.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbrarKL/Akamai-Generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AbrarKL/Akamai-Generator/issues"
+  },
+  "homepage": "https://github.com/AbrarKL/Akamai-Generator#readme",
+  "dependencies": {
+    "escodegen": "^1.9.1",
+    "esprima": "^4.0.0"
+  }
+}
