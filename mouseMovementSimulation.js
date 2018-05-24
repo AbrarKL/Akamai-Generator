@@ -10,9 +10,9 @@ var mduce_cnt_lmt = 75;
 
 //simulate Mouse movement
 simulateCMA(200, 200, 1) // state 1 = its movement
-simulateCMA(200, 201, 1) // Moved x axis forward
-simulateCMA(200, 202, 1) // Moved x axis forward again
-simulateCMA(200, 203, 1) // Moved x axis forward again (so it seems legitimate)
+simulateCMA(200, 201, 1) // Moved y axis forward
+simulateCMA(200, 202, 1) // Moved y axis forward again
+simulateCMA(200, 203, 1) // Moved y axis forward again (so it seems legitimate)
 console.log("Mouse Movement Count: " + mme_cnt);
 simulateCMA(200, 202, 3) // Mouse pressed / mousedown
 simulateCMA(200, 202, 4) // Mouse released / mouseup
