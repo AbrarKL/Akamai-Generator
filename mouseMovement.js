@@ -1,3 +1,4 @@
+//Commented
 var start_ts = Date["now"] ? Date["now"]() : +new Date;
 var mme_cnt = 0;
 var mme_cnt_lmt = 25;
