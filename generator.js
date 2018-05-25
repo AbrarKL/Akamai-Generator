@@ -1,3 +1,12 @@
+var mme_cnt = 0;
+var mme_cnt_lmt = 25;
+var me_cnt = 0;
+var me_vel = 0;
+var mact = "";
+var tact = "";
+var ta = 0;
+var mduce_cnt = 0;
+var mduce_cnt_lmt = 75;
 var ke_cnt_lmt = 150;
 var ke_cnt = 0;
 var prevfid = -1;
@@ -5,7 +14,6 @@ var fidcnt = 0;
 var kact = "";
 var ke_vel = 0;
 var ta = 0;
-
 var present = require('present');
 var start_ts = Date["now"] ? Date["now"]() : +new Date;
 var sensor_data;
@@ -35,10 +43,13 @@ tst = get_cf_date() - t_tst;
 getmr();
 //look at IR function ^ should be in it, line 1725 should be at the begining
 to();
-var start = 0; 
+//To get kact variable
 cka(1);
 cka(2);
+// To get mact varible
+fakeMouseMovements()
 // This is the function that generates sensor data
+var start = 0; 
 try
 {
 	start = get_cf_date();
@@ -54,7 +65,7 @@ try
 	var s = "0,0"; // Should recreate the details probably
 	var h = "" + ab("{fpcf[fpValstr]}");
 	var g = sed();
-	sensor_data = ver + "-1,2,-94,-100," + n + "-1,2,-94,-101," + i + "-1,2,-94,-105," + forminfo() + "-1,2,-94,-102," + r + "-1,2,-94,-108," + kact + "-1,2,-94,-110," + "{mact}" + "-1,2,-94,-117," + "{tact}" + "-1,2,-94,-111," + "{doact}" + "-1,2,-94,-109," + "{dmact}" + "-1,2,-94,-114," + "{pact}" + "-1,2,-94,-103," + "{vcact}" + "-1,2,-94,-112," + d + "-1,2,-94,-115," + "{m}" + "-1,2,-94,-106," + s;
+	sensor_data = ver + "-1,2,-94,-100," + n + "-1,2,-94,-101," + i + "-1,2,-94,-105," + forminfo() + "-1,2,-94,-102," + r + "-1,2,-94,-108," + kact + "-1,2,-94,-110," + mact + "-1,2,-94,-117," + "{tact}" + "-1,2,-94,-111," + "{doact}" + "-1,2,-94,-109," + "{dmact}" + "-1,2,-94,-114," + "{pact}" + "-1,2,-94,-103," + "{vcact}" + "-1,2,-94,-112," + d + "-1,2,-94,-115," + "{m}" + "-1,2,-94,-106," + s;
 	sensor_data = sensor_data + "-1,2,-94,-119," + mr + "-1,2,-94,-122," + g; // I'm not sure if the way I set 'mr' works as it should, but I think it should be fine, just not sure
 	var w = ab(sensor_data);
 	sensor_data = sensor_data + "-1,2,-94,-70," + "fpcf[fpValstr]}" + "-1,2,-94,-80," + h + "-1,2,-94,-116," + o9 + "-1,2,-94,-118," + w + "-1,2,-94,-121,";
@@ -77,7 +88,86 @@ catch(t)
 {
 	
 }
-function cka(number) // To generate the 'kact'
+function fakeMouseMovements()
+{
+	var mouseMovementAmount = Math.floor(Math.random() * (mme_cnt_lmt - 2) ) + 2; // Amount of times to fake move the mouse between 2 and the max mouse movement var
+	var randomXStart = Math.floor(Math.random() * (1900 - 200) ) + 200; // random X axis to start from between 200 and 1900
+	var randomYStart = Math.floor(Math.random() * (1000 - 200) ) + 200; // random Y axis to start from between 200 and 1900
+	console.log("Moving mouse: " + mouseMovementAmount + " times");
+	console.log("Starting X coordinate: " + randomXStart);
+	console.log("Starting Y coordinate: " + randomYStart);
+	var moveXorY = Math.round(Math.random());
+	for(var i = 0; i < mouseMovementAmount; i++)
+	{
+		if(moveXorY == 1)
+		{
+			randomXStart++;
+			simulateCMA(randomXStart, randomYStart, 1)
+		}
+		else
+		{
+			randomYStart++;
+			simulateCMA(randomXStart, randomYStart, 1)
+		}
+	}
+	console.log("Ending X coordinate: " + randomXStart);
+	console.log("Ending Y coordinate: " + randomYStart);	
+	simulateCMA(randomXStart, randomYStart, 3) // Mouse pressed / mousedown
+	simulateCMA(randomXStart, randomYStart, 4) // Mouse released / mouseup
+	simulateCMA(randomXStart, randomYStart, 2) // Mouse click / click
+}
+function simulateCMA(xCoord, yCoord, _state) {
+	// Events in order. _state 1 should happen more than once
+	// _state 1 = mouse movement
+	// _state 3 = mouse pressed on element
+	// _state 4 = mouse released(after mouse)
+	// _state 2 = mouse click
+	
+	// If mouse moved && mouse movement count is less than the mouse movement count limit (25 movements)
+	// OR if state isn't 1 and mduce_cnt is less than hte mduce_cnt limit which is 75
+    if (1 == _state && mme_cnt < mme_cnt_lmt || 1 != _state && mduce_cnt < mduce_cnt_lmt) {
+        var hide = -1;
+        var i = -1;
+		// if props variable exists (not needed in our simulated one) and propsx exist and propsy exist (they should always)
+		// props["pageX"] will be replaced with a random x coordinate
+		// props["pageY"] will be replaecd with a random y coordinate
+        hide = Math["floor"](xCoord);
+        i = Math["floor"](yCoord);
+        var value = -1; // Was var value = props["toElement"];
+        var str = value; // Was var str = gf(value);
+		// str returns undefined for some reason, so I assume we dont need above lines from var value = x etc
+        var index = get_cf_date() - start_ts;
+        var d = me_cnt + "," + _state + "," + index + "," + hide + "," + i;
+        if (1 != _state) {
+            d = d + "," + str;	
+			//h = 0 if mouse moved
+			//h = 1 if mouse clicked
+			var h = 0;
+			if(_state == 1)
+			{
+				h = 0;
+			}
+			else
+			{
+				h = 1;
+			}
+            if (null != h && 1 != h) {
+                d = d + "," + h;
+            }
+        }
+        d = d + ";";
+        me_vel = me_vel + me_cnt + _state + index + hide + i;
+        mact = mact + d;
+        ta += index;
+    }
+    if (1 == _state) {
+        mme_cnt++;
+    } else {
+        mduce_cnt++;
+    }
+    me_cnt++;
+}
+function cka(number)
 {
       var n = -1;
       var s = 1;
