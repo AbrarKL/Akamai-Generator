@@ -1,4 +1,4 @@
-_ac = [
+module.exports = [
     'runFonts',
     'pixelDepth',
     '-1,2,-94,-122,',
@@ -638,4 +638,4 @@ _ac = [
     'den',
     'XDomainRequest',
     'touchend'
-]
+];
